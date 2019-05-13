@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "dependencies": {
+    "@types/node": "^11.13.7",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "connect-redis": "^3.3.3",

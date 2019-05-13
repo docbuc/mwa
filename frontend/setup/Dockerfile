@@ -1,6 +1,7 @@
-FROM node:10-alpine
+# Datei: mwa/frontend/setup/Dockerfile (docbuc/mwafe-setup:2)
+FROM node:12-alpine
 RUN apk add --no-cache git
-RUN npm i -g --save vue-cli
+RUN npm i -g --save @vue/cli
 WORKDIR /src
-CMD ["vue", "init", "pwa", "vue"]
+CMD ["vue", "create", "vue"]
 

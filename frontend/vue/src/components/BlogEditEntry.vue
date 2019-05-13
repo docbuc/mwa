@@ -17,7 +17,7 @@
 import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import request from '../util/request'
-const marked = require('marked')
+import marked from 'marked'
 export default {
   name: 'blog-edit-entry',
   props: [ '_id', 'title', 'note', 'date' ],
@@ -34,7 +34,7 @@ export default {
         title: this.blogtitle,
         note: this.blognote
       })
-        .then(response => {
+        .then(() => {
           this.$emit('update-done')
           this.$store.commit('updateEntry', {
             title: this.blogtitle,

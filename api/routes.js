@@ -12,7 +12,7 @@ const Jimp = require('jimp'),
 module.exports.setup = function(router, diary) {
 
   router.get("/openblogs", (req, res) => {
-    diary.collection('entries').find({ public: true })
+    diary.collection('entries').find({ publicEntry: true })
     .project({ pic: 0 })
     .sort({ date: -1 })
     .limit(5).toArray((err, blogs) => {
@@ -21,7 +21,7 @@ module.exports.setup = function(router, diary) {
   });
   router.get("/viewblog/:user", (req, res) => {
     const user = req.params.user;
-    const query = { public: true, user: user };
+    const query = { publicEntry: true, user: user };
     diary.collection('entries').find(query)
     .sort({ date: -1 }).limit(10).toArray((err, entries) => {
       res.json(entries);
@@ -123,7 +123,7 @@ module.exports.setup = function(router, diary) {
           thumbnail: Buffer.from(buff, 'base64'),
           mime: req.file.mimetype,
           size: req.file.size,
-          public: false,
+          publicEntry: false,
           filename: req.file.originalname
         };
         diary.collection('entries').insertOne(entry, { w: 1 }, (err, dbres) => {
@@ -144,7 +144,7 @@ module.exports.setup = function(router, diary) {
     check('date').isISO8601().optional(),
     check('title').isString().optional(),
     check('note').isString().optional(),
-    check('public').isBoolean().optional()
+    check('publicEntry').isBoolean().optional()
   ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

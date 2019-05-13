@@ -1,11 +1,11 @@
 <template>
   <div class="blog-entry" :id="'_' + _id">
-    <div class="entryHeader" v-bind:class="{ public: public }">
+    <div class="entryHeader" v-bind:class="{ publicEntry: publicEntry }">
       <span class="title">{{ title }}</span>
       <span class="date">{{ date | dateFormat }}</span>
       <div class="editElements" v-if="user !== ''">
         <span class="lock" @click="togglePublic">
-          <span v-if="public"> 🔓 </span>
+          <span v-if="publicEntry"> 🔓 </span>
           <span v-else> 🔒 </span>
         </span>
         <span class="edit" @click="edit = true"> ✎ </span>
@@ -28,7 +28,7 @@
           ></blog-edit-entry>
         </div>
         <div v-else>
-          <h3>{{ title }}</h3>
+          <h3>{{title}}</h3>
           <div v-html="compiledNote"></div>
         </div>
       </div>
@@ -38,21 +38,21 @@
 <script>
 import BlogEditEntry from './BlogEditEntry'
 import request from '../util/request'
-const marked = require('marked')
+import marked from 'marked'
 export default {
   name: 'blog-entry',
-  props: [ 'date', 'title', 'pic', 'mime', 'note', '_id', 'thumbnail', 'startedit', 'public' ],
+  props: [ 'date', 'title', 'pic', 'mime', 'note', '_id', 'thumbnail', 'startedit', 'publicEntry' ],
   methods: {
     togglePublic: function () {
       request.patch('/entry/' + this._id, {
-        public: !this.public
+        publicEntry: !this.publicEntry
       })
         .then(json => {
           console.log('json: ', json)
           if (json.success === false) {
             console.log('cannot modify')
           } else {
-            this.public = !this.public
+            this.publicEntry = !this.publicEntry
           }
         })
     }
@@ -77,7 +77,7 @@ export default {
       entry: {
         _id: this._id,
         note: this.note || '',
-        public: this.public || false,
+        publicEntry: this.publicEntry || false,
         title: this.title,
         date: this.date
       }
@@ -97,7 +97,7 @@ export default {
   padding: 1rem;
   background-color: darkslategray;
   color: white;
-  &.public {
+  &.publicEntry {
     background-color: green;
   }
   .title {

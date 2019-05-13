@@ -31,11 +31,13 @@ import Calendar from './Calendar'
 import request from '../util/request'
 import Vue from 'vue'
 import VuejsDialog from 'vuejs-dialog'
-import 'vue2-dropzone/dist/vue2Dropzone.css'
-const service = require('../../config').service
+import 'vuejs-dialog/dist/vuejs-dialog.min.css'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import config from '../../config'
 export default {
   name: 'blog',
   created () {
+    console.log('CEATED blog: ', config)
     Vue.use(VuejsDialog)
     if (this.user) {
       request.get('/viewblog/' + this.user)
@@ -69,7 +71,7 @@ export default {
             this.removeAllFiles()
           }
         },
-        complete: function (file, done) {
+        complete: function (file) {
           if (file.xhr && file.xhr.status === 403) {
             vm.$store.commit('logout')
             vm.$router.push('/login')
@@ -78,7 +80,7 @@ export default {
         resizeWidth: 1200,
         dictDefaultMessage: 'Hier klicken oder Bild hier her ziehen',
         withCredentials: true,
-        url: service.baseUrl + '/entry'
+        url: config.service.baseUrl + '/entry'
       },
       lightboxPic: '',
       lightboxPicTitle: '',
@@ -93,7 +95,7 @@ export default {
       })
         .then(() => {
           request.delete('/entry/' + id)
-            .then(response => {
+            .then(() => {
               this.$store.commit('delEntry', id)
             })
         })
@@ -115,7 +117,7 @@ export default {
         })
     },
     picClicked: function (id, title) {
-      this.lightboxPic = service.baseUrl + '/viewimage/' + id
+      this.lightboxPic = config.service.baseUrl + '/viewimage/' + id
       this.lightboxPicTitle = title
       this.lightboxActive = true
     }

@@ -1,4 +1,4 @@
-const service = require('../../config').service
+import config from '../../config'
 
 function handleAuth (response) {
   switch (response.status) {
@@ -15,7 +15,7 @@ export default {
       method: 'GET',
       credentials: 'include'
     }
-    return fetch(service.baseUrl + url, options)
+    return fetch(config.service.baseUrl + url, options)
       .then(handleAuth)
   },
   delete (url) {
@@ -23,7 +23,7 @@ export default {
       method: 'DELETE',
       credentials: 'include'
     }
-    return fetch(service.baseUrl + url, options)
+    return fetch(config.service.baseUrl + url, options)
       .then(handleAuth)
   },
   post (url, body) {
@@ -35,7 +35,7 @@ export default {
       credentials: 'include',
       body: JSON.stringify(body)
     }
-    return fetch(service.baseUrl + url, options)
+    return fetch(config.service.baseUrl + url, options)
       .then(handleAuth)
   },
   put (url, body) {
@@ -47,7 +47,7 @@ export default {
       credentials: 'include',
       body: JSON.stringify(body)
     }
-    return fetch(service.baseUrl + url, options)
+    return fetch(config.service.baseUrl + url, options)
       .then(handleAuth)
   },
   patch (url, body) {
@@ -59,7 +59,7 @@ export default {
       credentials: 'include',
       body: JSON.stringify(body)
     }
-    return fetch(service.baseUrl + url, options)
+    return fetch(config.service.baseUrl + url, options)
       .then(handleAuth)
   }
 }

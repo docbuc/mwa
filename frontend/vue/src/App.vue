@@ -1,5 +1,5 @@
-<!-- Datei: mwa/frontend/vue/src/App.vue -->
 <template>
+  <!-- Datei: mwa/frontend/vue/src/App.vue -->
   <div id="app">
     <header>
       <span>

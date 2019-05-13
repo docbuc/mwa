@@ -9,6 +9,12 @@
       v-on:show-date-change="dateChanged"
       :show-date="showDate"
     >
+      <calendar-view-header
+        slot="header"
+        slot-scope="t"
+        :header-props="t.headerProps"
+        @input="dateChanged"
+      ></calendar-view-header>
     <template slot="event" slot-scope="props">
       <div
         :class="['cv-event', ...props.event.classes]"
@@ -22,10 +28,12 @@
   </div>
 </template>
 <script>
-import CalendarView from 'vue-simple-calendar'
+import { CalendarView, CalendarViewHeader } from 'vue-simple-calendar'
+
+// import CalendarView from 'vue-simple-calendar'
 import request from '../util/request'
-require('vue-simple-calendar/dist/static/css/default.css')
-require('vue-simple-calendar/dist/static/css/holidays-us.css')
+import 'vue-simple-calendar/static/css/default.css'
+import 'vue-simple-calendar/static/css/holidays-us.css'
 export default {
   name: 'calendar',
   props: [ 'entries' ],
@@ -72,7 +80,8 @@ export default {
     }
   },
   components: {
-    CalendarView
+    CalendarView,
+    CalendarViewHeader
   }
 }
 </script>
