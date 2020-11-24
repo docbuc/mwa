@@ -9,7 +9,9 @@ module.exports = {
     '@vue/standard'
   ],
   rules: {
-    'no-console': 'off'
+    'no-console': 'off',
+    'array-bracket-spacing': ["error", "always"],
+    'no-prototype-builtins': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint'
