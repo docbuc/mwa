@@ -126,7 +126,7 @@ module.exports.setup = function(router, diary) {
           publicEntry: false,
           filename: req.file.originalname
         };
-        diary.collection('entries').insertOne(entry, { w: 1 }, (err, dbres) => {
+        diary.collection('entries').insertOne(entry, { writeConcern: 1 }, (err, dbres) => {
           res.json({ _id: dbres.ops[0]._id });
         });
       })

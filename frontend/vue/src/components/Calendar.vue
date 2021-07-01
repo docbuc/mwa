@@ -3,7 +3,7 @@
     <calendar-view
       class="theme-default holiday-de-traditional holiday-de-official"
       :startingDayOfWeek="1"
-      :events="events"
+      :items="events"
       :locale="'de'"
       v-on:click-event="eventClicked"
       v-on:show-date-change="dateChanged"
@@ -15,15 +15,6 @@
         :header-props="t.headerProps"
         @input="dateChanged"
       ></calendar-view-header>
-    <template slot="event" slot-scope="props">
-      <div
-        :class="['cv-event', ...props.event.classes]"
-        :key="props.event.id"
-        v-bind:style="{ 'background-image': props.event.originalEvent.thumbnail, top: props.top }"
-      >
-      <router-link :to="props.event.originalEvent.url">{{ props.event.title }}</router-link>
-      </div>
-    </template>
   </calendar-view>
   </div>
 </template>

@@ -41,7 +41,7 @@ export default {
         user: this.user,
         password: this.password
       })
-        .then(json => {
+        .then(() => {
           this.$router.push('blog')
           this.$store.commit('login', this.user)
           this.$emit('login', this.user)

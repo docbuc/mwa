@@ -1,11 +1,11 @@
 <template>
   <div class="blog-entry" :id="'_' + _id">
-    <div class="entryHeader" v-bind:class="{ publicEntry: publicEntry }">
+    <div class="entryHeader" v-bind:class="{ publicEntry: isPublic }">
       <span class="title">{{ title }}</span>
       <span class="date">{{ date | dateFormat }}</span>
       <div class="editElements" v-if="user !== ''">
         <span class="lock" @click="togglePublic">
-          <span v-if="publicEntry"> 🔓 </span>
+          <span v-if="isPublic"> 🔓 </span>
           <span v-else> 🔒 </span>
         </span>
         <span class="edit" @click="edit = true"> ✎ </span>
@@ -45,14 +45,14 @@ export default {
   methods: {
     togglePublic: function () {
       request.patch('/entry/' + this._id, {
-        publicEntry: !this.publicEntry
+        publicEntry: !this.isPublic,
       })
         .then(json => {
           console.log('json: ', json)
           if (json.success === false) {
             console.log('cannot modify')
           } else {
-            this.publicEntry = !this.publicEntry
+            this.isPublic = !this.isPublic;
           }
         })
     }
@@ -65,7 +65,7 @@ export default {
       }
     },
     compiledNote: function () {
-      return marked(this.note || '', { sanitize: true })
+      return marked(this.note || '')
     },
     user () {
       return this.$store.state.user
@@ -74,6 +74,7 @@ export default {
   data () {
     return {
       edit: this.startedit || false,
+      isPublic: this.publicEntry || false,
       entry: {
         _id: this._id,
         note: this.note || '',

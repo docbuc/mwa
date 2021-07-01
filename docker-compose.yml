@@ -28,7 +28,7 @@ services:
     ports:
       - 3000:3000
   redis:
-    image: redis:5-alpine
+    image: redis:6-alpine
   frontend:
     restart: always
     build: frontend

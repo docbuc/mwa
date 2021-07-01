@@ -14,7 +14,7 @@ export default new Router({
     { path: '/blog', name: 'Blog', component: Blog },
     { path: '/blog/:user', name: 'UserBlog', component: Blog }
   ],
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior (to) {
     if (to.hash) {
       console.log('going to return ', { selector: to.hash })
       if (document.querySelector(to.hash)) {

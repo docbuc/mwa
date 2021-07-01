@@ -31,10 +31,10 @@ export default new Vuex.Store({
     },
     updateEntry: (state, entry) => {
       console.log('commit on updateEntry ...', entry)
-      state.entries = state.entries.map((obj, idx) => {
+      state.entries = state.entries.map((obj) => {
         if (obj._id === entry._id) {
           for (var key in entry) {
-            if (entry.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(entry, key)) {
               obj[key] = entry[key]
             }
           }

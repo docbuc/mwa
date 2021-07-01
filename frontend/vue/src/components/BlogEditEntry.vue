@@ -58,7 +58,7 @@ export default {
       if (!this.blognote) {
         return ''
       }
-      return marked(this.blognote, { sanitize: true })
+      return marked(this.blognote)
     }
   },
   components: {
