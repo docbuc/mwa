@@ -1,6 +1,6 @@
 console.log('PROCESS env: ', process.env)
 
-export default {
+module.exports = {
   service: {
     baseUrl: '/api'
   }

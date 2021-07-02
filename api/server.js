@@ -6,7 +6,6 @@ const express = require("express"),
   session = require('express-session'),
   redis = require('redis'),
   RedisStore = require('connect-redis')(session),
-  router = express.Router(),
   routes = require('./routes'),
   app = express();
 
@@ -31,8 +30,8 @@ app.use(session({
   secret: secretsalt,
   resave: false
 }));
-app.use('/', router);
-router.get("/health", (req, res) => {
+app.use('/', routes);
+app.get("/health", (req, res) => {
   debug("health-check von ", req.ip);
   res.json({ healthy: true });
 });
@@ -54,6 +53,6 @@ function connect() {
     (err, client) => {
     mongoConnected = true;
     const diary = client.db('diary')
-    routes.setup(router, diary);
+    app.set('db', diary);
   });
 }
